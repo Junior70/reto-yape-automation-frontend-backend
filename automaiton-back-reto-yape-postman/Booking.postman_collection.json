@@ -1,0 +1,926 @@
+{
+	"info": {
+		"_postman_id": "07ef7c17-43b9-47c9-9b87-03c12d8dd663",
+		"name": "Booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetBooking All IDs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"if (responseCode.code==200){\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"bookingid\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"bookingid\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}/booking",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookingIds Filter Name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"if (responseCode.code==200){\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"bookingid\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"bookingid\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}/booking?firstname={{name}}&lastname={{lasname}}",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "{{name}}"
+						},
+						{
+							"key": "lastname",
+							"value": "{{lasname}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking Filter CheckinCheckout date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code==200){\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"bookingid\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"bookingid\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}else if (responseCode.code==500){\r",
+							"    \r",
+							"    pm.test(\"El valor ingresado es incorrecto o falta mas informacion o el servidor no responde y Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}/booking?checkin=201-05-25&checkout=2020-08-14",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "201-05-25"
+						},
+						{
+							"key": "checkout",
+							"value": "2020-08-14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"/*\r",
+							"var is200Response = responseCode.code === 200;\r",
+							"tests['Response code is 200 OK'] = is200Response;\r",
+							"*/\r",
+							"\r",
+							"if (responseCode.code==200){\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate data structure campos\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"firstname\");\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"lastname\");\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"totalprice\");\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"depositpaid\");\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"bookingdates\");\r",
+							"    pm.expect(pm.response.json().bookingdates).to.have.ownProperty(\"checkin\");\r",
+							"    pm.expect(pm.response.json().bookingdates).to.have.ownProperty(\"checkout\");\r",
+							"    pm.expect(pm.response.json()).to.have.ownProperty(\"additionalneeds\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate data type structure\",()=>{\r",
+							"    pm.expect(jsonData.firstname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.lastname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.totalprice).to.be.an(\"number\");\r",
+							"    pm.expect(jsonData.depositpaid).to.be.an(\"boolean\");\r",
+							"    pm.expect(jsonData.bookingdates).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.additionalneeds).to.be.an(\"String\");\r",
+							"\r",
+							"})\r",
+							"\r",
+							"const moment = require(\"moment\");\r",
+							"var formatdatecheckin= moment(jsonData.bookingdates.checkin).format(\"YYYY-MM-DD\");\r",
+							"var formatdatecheckinc=  moment(jsonData.bookingdates.checkin, \"YYYY-MM-DD\");\r",
+							"\r",
+							"var formatdatecheckout= moment(jsonData.bookingdates.checkout).format(\"YYYY-MM-DD\");\r",
+							"var formatdatecheckoutc= moment(jsonData.bookingdates.checkout, \"YYYY-MM-DD\");\r",
+							"\r",
+							"//console.log(formatdatecheckin);\r",
+							"//console.log(jsonData.bookingdates.checkin);\r",
+							"//console.log(formatdatecheckout);\r",
+							"\r",
+							"pm.test(\"Validate format date checkin and checkout\", function (){\r",
+							"\r",
+							"    pm.expect(jsonData.bookingdates.checkin).to.be.eqls(formatdatecheckin);\r",
+							"    pm.expect(jsonData.bookingdates.checkout).to.be.eqls(formatdatecheckout);\r",
+							"    pm.expect(formatdatecheckinc.isSameOrAfter(jsonData.bookingdates.checkin)).to.be.true;\r",
+							"    pm.expect(formatdatecheckoutc.isSameOrAfter(jsonData.bookingdates.checkout)).to.be.true;\r",
+							"})\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingreso de busqueda no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingid}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"  \r",
+							"if (responseCode.code==200){\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"bookingid\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"booking\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"firstname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"lastname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"totalprice\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"depositpaid\": {\r",
+							"          \"type\": \"boolean\"\r",
+							"        },\r",
+							"        \"bookingdates\": {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"checkin\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"checkout\": {\r",
+							"              \"type\": \"string\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"checkin\",\r",
+							"            \"checkout\"\r",
+							"          ]\r",
+							"        },\r",
+							"        \"additionalneeds\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"firstname\",\r",
+							"        \"lastname\",\r",
+							"        \"totalprice\",\r",
+							"        \"depositpaid\",\r",
+							"        \"bookingdates\",\r",
+							"        \"additionalneeds\"\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"bookingid\",\r",
+							"    \"booking\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test (\"Validate data created for name and lastname\",()=>{\r",
+							"    name = pm.globals.get(\"name\");\r",
+							"    lasname = pm.globals.get(\"lasname\");\r",
+							"    pm.expect(jsonData.booking.firstname).to.be.eqls(name);  \r",
+							"    pm.expect(jsonData.booking.lastname).to.be.eqls(lasname);        \r",
+							"})\r",
+							"\r",
+							"tests['Validate format date checkin'] = /^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$/.test(jsonData.booking.bookingdates.checkin);\r",
+							"\r",
+							"tests['Validate format date checkout'] = /^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$/.test(jsonData.booking.bookingdates.checkout);\r",
+							"\r",
+							"//capturo el codigo en la varible de entorno\r",
+							"postman.setEnvironmentVariable(\"bookingid\", jsonData.bookingid);\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"\r",
+							"}else if (responseCode.code==400){\r",
+							"    \r",
+							"    pm.test(\"El valor ingresado es incorrecto y Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    });\r",
+							"\r",
+							"}else if (responseCode.code==500){\r",
+							"    \r",
+							"    pm.test(\"El valor ingresado es incorrecto o falta mas informacion o el servidor no responde y Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};\r",
+							"var faker_url = \"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\"\r",
+							"pm.sendRequest(faker_url, (err, res) => {\r",
+							"const faker = res.text();\r",
+							"(new Function(faker))();\r",
+							"\r",
+							"    var name = window.faker.name.findName();\r",
+							"    var lasname = window.faker.name.lastName();\r",
+							"\r",
+							"    //console.log (\"name \"+name);\r",
+							"    //console.log (\"lasname \"+lasname);\r",
+							"\r",
+							"    pm.globals.set(\"name\", name);\r",
+							"    pm.globals.set(\"lasname\", lasname);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"{{name}}\",\n    \"lastname\" : \"{{lasname}}\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBooking",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};\r",
+							"var faker_url = \"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\"\r",
+							"pm.sendRequest(faker_url, (err, res) => {\r",
+							"const faker = res.text();\r",
+							"(new Function(faker))();\r",
+							"\r",
+							"    var name = window.faker.name.findName();\r",
+							"    var lasname = window.faker.name.lastName();\r",
+							"\r",
+							"    //console.log (\"name \"+name);\r",
+							"    //console.log (\"lasname \"+lasname);\r",
+							"\r",
+							"    pm.globals.set(\"name\", name);\r",
+							"    pm.globals.set(\"lasname\", lasname);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"  \r",
+							"if (responseCode.code==200){\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"firstname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"lastname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"totalprice\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"depositpaid\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"bookingdates\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"checkin\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"checkout\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"checkin\",\r",
+							"        \"checkout\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"additionalneeds\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"firstname\",\r",
+							"    \"lastname\",\r",
+							"    \"totalprice\",\r",
+							"    \"depositpaid\",\r",
+							"    \"bookingdates\",\r",
+							"    \"additionalneeds\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate data type structure\",()=>{\r",
+							"    pm.expect(jsonData.firstname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.lastname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.totalprice).to.be.an(\"number\");\r",
+							"    pm.expect(jsonData.depositpaid).to.be.an(\"boolean\");\r",
+							"    pm.expect(jsonData.bookingdates).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.additionalneeds).to.be.an(\"String\");\r",
+							"})\r",
+							"\r",
+							"pm.test (\"Validate data update for name and lastname\",()=>{\r",
+							"    name = pm.globals.get(\"name\");\r",
+							"    lasname = pm.globals.get(\"lasname\");\r",
+							"    pm.expect(jsonData.firstname).to.be.eqls(name);  \r",
+							"    pm.expect(jsonData.lastname).to.be.eqls(lasname);        \r",
+							"})\r",
+							"\r",
+							"tests['Validate format date checkin'] = /^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$/.test(jsonData.bookingdates.checkout);\r",
+							"tests['Validate format date checkout'] = /^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$/.test(jsonData.bookingdates.checkout);\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}else if (responseCode.code==400){\r",
+							"    \r",
+							"    pm.test(\"El valor ingresado es incorrecto y Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"{{name}}\",\n    \"lastname\" : \"{{lasname}}\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingid}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdateBooking",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};\r",
+							"var faker_url = \"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\"\r",
+							"pm.sendRequest(faker_url, (err, res) => {\r",
+							"const faker = res.text();\r",
+							"(new Function(faker))();\r",
+							"\r",
+							"    var name = window.faker.name.findName();\r",
+							"    var lasname = window.faker.name.lastName();\r",
+							"\r",
+							"    //console.log (\"name \"+name);\r",
+							"    //console.log (\"lasname \"+lasname);\r",
+							"\r",
+							"    pm.globals.set(\"name\", name);\r",
+							"    pm.globals.set(\"lasname\", lasname);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"if (responseCode.code==200){\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"firstname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"lastname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"totalprice\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"depositpaid\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"bookingdates\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"checkin\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"checkout\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"checkin\",\r",
+							"        \"checkout\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"additionalneeds\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"firstname\",\r",
+							"    \"lastname\",\r",
+							"    \"totalprice\",\r",
+							"    \"depositpaid\",\r",
+							"    \"bookingdates\",\r",
+							"    \"additionalneeds\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema Validation', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema);\r",
+							"    if (!result.valid) {\r",
+							"        console.log(result);\r",
+							"        pm.expect(result.valid).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate data type structure\",()=>{\r",
+							"    pm.expect(jsonData.firstname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.lastname).to.be.an(\"String\");\r",
+							"    pm.expect(jsonData.totalprice).to.be.an(\"number\");\r",
+							"    pm.expect(jsonData.depositpaid).to.be.an(\"boolean\");\r",
+							"    pm.expect(jsonData.bookingdates).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.additionalneeds).to.be.an(\"String\");\r",
+							"})\r",
+							"\r",
+							"pm.test (\"Validate data created for name and lastname\",()=>{\r",
+							"    name = pm.globals.get(\"name\");\r",
+							"    lasname = pm.globals.get(\"lasname\");\r",
+							"    pm.expect(jsonData.firstname).to.be.eqls(name);  \r",
+							"    pm.expect(jsonData.lastname).to.be.eqls(lasname);        \r",
+							"})\r",
+							"\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"\r",
+							"}else if (responseCode.code==400){\r",
+							"    \r",
+							"    pm.test(\"El valor ingresado es incorrecto y Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"{{name}}\",\n    \"lastname\": \"{{lasname}}\"\n}"
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingid}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code==201){\r",
+							"\r",
+							"  pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    });\r",
+							"}else if (responseCode.code==404){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no existe y Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}else if (responseCode.code==405){\r",
+							"    \r",
+							"    pm.test(\"El parametro ingresado no esta permitido y Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"    });\r",
+							"    \r",
+							"}else if (responseCode.code==403){\r",
+							"    \r",
+							"    pm.test(\"No se ha configurado el Token de conexion is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"    });\r",
+							"    \r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingid}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

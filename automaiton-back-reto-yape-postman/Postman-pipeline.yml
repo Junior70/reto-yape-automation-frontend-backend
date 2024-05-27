@@ -1,0 +1,40 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- collections
+
+pool:
+  name: "Azure Pipelines"
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.17.*'
+
+- script: |
+   npm install -g newman
+   npm install -g newman-reporter-html
+   npm install -g newman-reporter-htmlextra
+  displayName: 'Run a one-line script'
+
+- script: |
+
+  displayName: 'Run scripts newman'
+- task: CmdLine@2
+  displayName: "Ejecutando ando probando andando"
+  continueOnError: true
+  inputs:
+    script: |
+      cd API-ORDER
+      newman run "Booking.postman_collection.json" -e "Pruebas_QA.postman_environment.postman_environment.json" --reporters cli,junit --reporter-junit-export Results\junitReport.xml 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'ResultsjunitReport.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    
+
